@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Arkanoid | Three.js</title>
+        <link rel="stylesheet" href="main.css">
+        <script src="vendors/three.js"></script>
+    </head>
+    <body>
+        <!-- Div which will hold the Output -->
+        <div id="WebGL-output">
+        </div>
+
+        <script>
+            // For tutorial purposes, we'll set up a global object containing
+            // references to all objects.
+            // function init() {
+                var scene = new THREE.Scene();
+
+                var renderer = new THREE.WebGLRenderer();
+
+                renderer.setClearColor(new THREE.Color(0.0, 0.0, 0.0));
+                renderer.setSize(window.innerWidth*0.7, window.innerHeight*0.7);
+
+                var camera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
+                scene.add( camera );
+
+                document.getElementById("WebGL-output").appendChild(renderer.domElement);
+
+                // renderer.clear();
+                // renderer.render(scene, camera);
+
+                window.ECS = {
+                    Components: {},
+                    systems: {},
+                    entities: [],
+                    game: {},
+                    score: 0
+                };
+                // Canvas functionality (NOT ECS specific)
+                // --------------------------------------
+                // For the demo, just grab a reference to the canvas
+                // Some systems (e.g., rendering) need to know about the canvas. We
+                // could pass in a reference to it or store it's state globally like
+                // this:
+                // ECS.$canvas = document.getElementById("game-canvas");
+                // ECS.context = ECS.$canvas.getContext("2d");
+                // ECS.$score = document.getElementById("score");
+            // }
+            // window.onload = init;
+        </script>
+
+        <script src="js/entity.js"></script>
+
+        <script src="js/components/appearance.js"></script>
+        <script src="js/components/health.js"></script>
+        <script src="js/components/position.js"></script>
+
+        <script src="js/assemblages.js"></script>
+
+        <script src="js/systems/render.js"></script>
+
+        <script src="js/game.js"></script>
+
+    </body>
+</html>
