@@ -19,17 +19,20 @@
                 var renderer = new THREE.WebGLRenderer();
 
                 renderer.setClearColor(new THREE.Color(0.0, 0.0, 0.0));
-                renderer.setSize(window.innerWidth*0.7, window.innerHeight*0.7);
+                var height = Math.min(window.innerHeight, 800, window.innerWidth*5/4);
+                renderer.setSize(height*4/5, height);
 
-                var camera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
+                var camera = new THREE.OrthographicCamera(0.0, 80.0, 100.0, 0.0, -1.0, 1.0);
                 scene.add( camera );
 
                 document.getElementById("WebGL-output").appendChild(renderer.domElement);
 
-                // renderer.clear();
-                // renderer.render(scene, camera);
-
                 window.ECS = {
+                    Constants: {
+                        BRICK_WIDTH: 80/14,
+                        BRICK_MARGIN: 80/14/14,
+                        BRICK_HEIGHT: 3
+                    },
                     Components: {},
                     systems: {},
                     entities: [],

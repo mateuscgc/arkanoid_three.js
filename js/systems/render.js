@@ -5,18 +5,6 @@
  *  Component System
  *
  * ========================================================================= */
-// function clearCanvas () {
-//     // Store the current transformation matrix
-//     ECS.context.save();
-
-//     // Use the identity matrix while clearing the canvas
-//     ECS.context.setTransform(1, 0, 0, 1, 0, 0);
-//     ECS.context.clearRect(0, 0, ECS.$canvas.width, ECS.$canvas.height);
-
-//     // Restore the transform
-//     ECS.context.restore();
-// }
-
 
 // ECS - System - Render
 // --------------------------------------
@@ -26,14 +14,11 @@ ECS.systems.render = function systemRender ( entities ) {
     // feeds in relevant entities to the system, but for demo purposes we'll
     // assume all entities are passed in and iterate over them.
 
-    // This happens each tick, so we need to clear out the previous rendered
-    // state
-    // clearCanvas();
-
     var curEntity, fillStyle;
 
-    // iterate over all entities
     var cx,cy,width,height;
+
+    // iterate over all entities
     for( var entityId in entities ) {
         curEntity = entities[entityId];
 
@@ -42,77 +27,30 @@ ECS.systems.render = function systemRender ( entities ) {
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
         if( curEntity.components.appearance && curEntity.components.position ){
-
-            cx = curEntity.components.position.x;
-            cy = curEntity.components.position.y;
-            width = curEntity.components.appearance.width;
-            height = curEntity.components.appearance.height;
-
-            // squareGeometry.vertices.push(   new THREE.Vector3(cx - width / 2, cy + height / 2, 0.0),
-            //                                 new THREE.Vector3(cx + width / 2, cy + height / 2, 0.0),
-            //                                 new THREE.Vector3(cx + width / 2, cy - height / 2, 0.0),
-            //                                 new THREE.Vector3(cx - width / 2, cy - height / 2, 0.0));
-
-            // var geometry = new THREE.Geometry();
-            // // geometry.vertices.push( new THREE.Vector3( -1.0,  0.5, 0.0 ),
-            // //                         new THREE.Vector3( -0.5, -0.5, 0.0 ),
-            // //                         new THREE.Vector3(  0.0,  0.5, 0.0 ),
-            // //                         new THREE.Vector3(  0.5, -0.5, 0.0 ),
-            // //                         new THREE.Vector3(  1.0,  0.5, 0.0 )
-            // //                         );
-
-            var geometry = new THREE.Geometry();
-            geometry.vertices.push( new THREE.Vector3(cx - width / 2, cy + height / 2, 0.0),
-                                    new THREE.Vector3(cx + width / 2, cy + height / 2, 0.0),
-                                    new THREE.Vector3(cx + width / 2, cy - height / 2, 0.0),
-                                    new THREE.Vector3(cx - width / 2, cy - height / 2, 0.0),
-                                    new THREE.Vector3(cx - width / 2, cy + height / 2, 0.0));
-
-            var line = new THREE.Line(geometry);
-            scene.add( line );
+            var shape = curEntity.components.appearance.shape;
 
 
-            // Build up the fill style based on the entity's color data
-            // fillStyle = 'rgba(' + [
-            //     curEntity.components.appearance.colors.r,
-            //     curEntity.components.appearance.colors.g,
-            //     curEntity.components.appearance.colors.b
-            // ];
+            var geometry;
+            if(shape === 'rectangle') {
+                geometry = new THREE.PlaneBufferGeometry(
+                            curEntity.components.appearance.width,
+                            curEntity.components.appearance.height);
+            } else if(shape === 'circle') {
+                geometry = new THREE.CircleGeometry(curEntity.components.appearance.radius, 32);
+            }
 
-            // if(!curEntity.components.collision){
-            //     // If the entity does not have a collision component, give it
-            //     // some transparency
-            //     fillStyle += ',0.1)';
-            // } else {
-            //     // Has a collision component
-            //     fillStyle += ',1)';
-            // }
 
-            // ECS.context.fillStyle = fillStyle;
+            material = new THREE.MeshBasicMaterial(
+                            {
+                                color: curEntity.components.appearance.color,
+                                side: THREE.DoubleSide
+                            });
 
-            // Color big squares differently
-            // if(!curEntity.components.playerControlled &&
-            // curEntity.components.appearance.size > 12){
-            //     ECS.context.fillStyle = 'rgba(0,0,0,0.8)';
-            // }
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
 
-            // draw a little black line around every rect
-            // ECS.context.strokeStyle = 'rgba(0,0,0,1)';
+            mesh.position.set(curEntity.components.position.x, curEntity.components.position.y, 0);
 
-            // draw the rect
-            // ECS.context.fillRect(
-            //     curEntity.components.position.x - curEntity.components.appearance.size,
-            //     curEntity.components.position.y - curEntity.components.appearance.size,
-            //     curEntity.components.appearance.size * 2,
-            //     curEntity.components.appearance.size * 2
-            // );
-            // // stroke it
-            // ECS.context.strokeRect(
-            //     curEntity.components.position.x - curEntity.components.appearance.size,
-            //     curEntity.components.position.y - curEntity.components.appearance.size,
-            //     curEntity.components.appearance.size * 2,
-            //     curEntity.components.appearance.size * 2
-            // );
         }
     }
 

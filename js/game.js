@@ -16,39 +16,39 @@ ECS.Game = function Game (){
     var entities = {}; // object containing { id: entity  }
     var entity;
 
-    // // Create a bunch of random entities
-    // for(var i=0; i < 20; i++){
-    //     entity = new ECS.Entity();
-    //     entity.addComponent( new ECS.Components.Appearance());
-    //     entity.addComponent( new ECS.Components.Position());
+    // Create a bunch of bricks to be destroyed
+    for(var h=0; h < 6; h++) {
+        for(var w=0; w < 13; w++){
+            entity = new ECS.Assemblages.Paper(
+                            {
+                                x: w*(ECS.Constants.BRICK_WIDTH + ECS.Constants.BRICK_MARGIN)
+                                    + ECS.Constants.BRICK_WIDTH / 2 + ECS.Constants.BRICK_MARGIN,
+                                y: 88 - h*(ECS.Constants.BRICK_HEIGHT + ECS.Constants.BRICK_MARGIN)
+                                    - ECS.Constants.BRICK_HEIGHT / 2
+                            });
 
-    //     // % chance for decaying rects
-    //     if(Math.random() < 0.8){
-    //         entity.addComponent( new ECS.Components.Health() );
-    //     }
-
-    //     // NOTE: If we wanted some rects to not have collision, we could set it
-    //     // here. Could provide other gameplay mechanics perhaps?
-    //     entity.addComponent( new ECS.Components.Collision());
-
-    //     entities[entity.id] = entity;
-    // }
-
+            entities[entity.id] = entity;
+        }
+    }
 
     // PLAYER entity
     // ----------------------------------
     // Make the last entity the "PC" entity - it must be player controlled,
     // have health and collision components
-    player = new ECS.Assemblages.CollisionRect();
-    player.addComponent( new ECS.Components.Health({ initial: 3 }) );
-    player.components.appearance.color = 0xFFFFFF;
-    player.components.appearance.width = 0.15;
-    player.components.appearance.height = 0.05;
-    player.components.position.x = 0.0;
-    player.components.position.y = -0.8;
+    paddle = new ECS.Assemblages.CollisionRect();
+    paddle.addComponent( new ECS.Components.Health({ initial: 3 }) );
+    paddle.components.appearance.color = 0xffffff;
+    paddle.components.appearance.width = ECS.Constants.BRICK_WIDTH * 2;
+    paddle.components.appearance.height = ECS.Constants.BRICK_HEIGHT * 1.2;
+    paddle.components.position.x = 50;
+    paddle.components.position.y = 8;
 
-    // we can also edit any component, as it's just data
-    entities[player.id] = player;
+    entities[paddle.id] = paddle;
+
+
+    // Create Ball
+    ball = new ECS.Assemblages.Circle();
+    entities[ball.id] = ball;
 
 
     // store reference to entities
@@ -79,9 +79,9 @@ ECS.Game = function Game (){
 
         // Run through the systems.
         // continue the loop
-        if(self._running !== false){
-            requestAnimationFrame(gameLoop);
-        }
+        // if(self._running !== false){
+            // requestAnimationFrame(gameLoop);
+        // }
     }
     // Kick off the game loop
     requestAnimationFrame(gameLoop);
@@ -89,18 +89,6 @@ ECS.Game = function Game (){
     // Lose condition
     // ----------------------------------
     this._running = true; // is the game going?
-
-    // this.endGame = function endGame(){
-    //     self._running = false;
-    //     document.getElementById('final-score').innerHTML = ECS.score;
-    //     document.getElementById('game-over').className = '';
-
-    //     // set a small timeout to make sure we set the background
-    //     setTimeout(function(){
-    //         document.getElementById('game-canvas').className = 'game-over';
-    //     }, 100);
-    // };
-
 
     return this;
 };
