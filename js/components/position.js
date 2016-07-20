@@ -1,6 +1,6 @@
 // Position
 // --------------------------------------
-ECS.Components.Position = function ComponentPosition ( params ){
+ECS.Components.Position = function( params ){
     params = params || {};
 
     this.x = params.x || 200;

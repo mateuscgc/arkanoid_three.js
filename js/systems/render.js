@@ -8,7 +8,7 @@
 
 // ECS - System - Render
 // --------------------------------------
-ECS.systems.render = function systemRender ( entities ) {
+ECS.systems.render = function ( entities ) {
     // Here, we've implemented systems as functions which take in an array of
     // entities. An optimization would be to have some layer which only
     // feeds in relevant entities to the system, but for demo purposes we'll
@@ -27,29 +27,9 @@ ECS.systems.render = function systemRender ( entities ) {
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
         if( curEntity.components.appearance && curEntity.components.position ){
-            var shape = curEntity.components.appearance.shape;
+            // var shape = curEntity.components.appearance.shape;
 
-
-            var geometry;
-            if(shape === 'rectangle') {
-                geometry = new THREE.PlaneBufferGeometry(
-                            curEntity.components.appearance.width,
-                            curEntity.components.appearance.height);
-            } else if(shape === 'circle') {
-                geometry = new THREE.CircleGeometry(curEntity.components.appearance.radius, 32);
-            }
-
-
-            material = new THREE.MeshBasicMaterial(
-                            {
-                                color: curEntity.components.appearance.color,
-                                side: THREE.DoubleSide
-                            });
-
-            mesh = new THREE.Mesh(geometry, material);
-            scene.add(mesh);
-
-            mesh.position.set(curEntity.components.position.x, curEntity.components.position.y, 0);
+            curEntity.components.appearance.mesh.position.set(curEntity.components.position.x, curEntity.components.position.y, 0);
 
         }
     }

@@ -5,7 +5,7 @@
  *  Here we implement an entity as a container of data (container of components)
  *
  * ========================================================================= */
-ECS.Entity = function Entity(){
+ECS.Entity = function(){
     // Generate a pseudo random ID
     this.id = (+new Date()).toString(16) +
         (Math.random() * 100000000 | 0).toString(16) +
@@ -42,7 +42,7 @@ ECS.Entity.prototype.removeComponent = function removeComponent ( componentName 
     return this;
 };
 
-ECS.Entity.prototype.print = function print () {
+ECS.Entity.prototype.print = function () {
     // Function to print / log information about the entity
     console.log(JSON.stringify(this, null, 4));
     return this;

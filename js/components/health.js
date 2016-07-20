@@ -1,4 +1,4 @@
-ECS.Components.Health = function ComponentHealth ( params ){
+ECS.Components.Health = function( params ){
     params = params || {};
 
     this.max = params.max || params.intial || 1;
