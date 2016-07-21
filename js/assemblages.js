@@ -68,13 +68,15 @@ ECS.Assemblages = {
                                         height: ECS.Constants.BRICK_HEIGHT * 1.2,
                                         color: params.color || 0xffffff
                                     }));
-        entity.addComponent( new ECS.Components.Health({ initial: (typeof params.initial === 'undefined') ? 3 : params.initial }) );
+        entity.addComponent( new ECS.Components.Health({ initial: (typeof params.initial === 'undefined') ? 4 : params.initial }) );
         entity.addComponent( new ECS.Components.Position(
                                     {
                                         x: (typeof params.x === 'undefined') ? 50 : params.x,
                                         y: (typeof params.y === 'undefined') ? 8 : params.y
                                     }));
         entity.addComponent( new ECS.Components.Collision());
+        entity.addComponent( new ECS.Components.Score());
+        entity.addComponent( new ECS.Components.GUI({ score: true, lives: true }) );
         return entity;
     },
 

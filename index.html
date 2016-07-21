@@ -9,6 +9,8 @@
         <!-- Div which will hold the Output -->
         <div id="WebGL-output">
         </div>
+        <h2 id="score">Score: <span></span></h2>
+        <h3 id="lives">Lives: <span></span></h2>
 
         <script>
             // For tutorial purposes, we'll set up a global object containing
@@ -72,18 +74,22 @@
         <script src="js/entity.js"></script>
 
         <script src="js/components/appearance.js"></script>
-        <script src="js/components/health.js"></script>
-        <script src="js/components/position.js"></script>
-        <script src="js/components/moviment.js"></script>
         <script src="js/components/collision.js"></script>
+        <script src="js/components/gui.js"></script>
+        <script src="js/components/health.js"></script>
+        <script src="js/components/moviment.js"></script>
+        <script src="js/components/position.js"></script>
+        <script src="js/components/score.js"></script>
 
         <script src="js/assemblages.js"></script>
 
         <script src="js/systems/moviment.js"></script>
         <script src="js/systems/userInput.js"></script>
         <script src="js/systems/collision.js"></script>
+        <script src="js/systems/playerLosesLife.js"></script>
         <script src="js/systems/life.js"></script>
         <script src="js/systems/render.js"></script>
+        <script src="js/systems/renderGUI.js"></script>
 
         <script src="js/game.js"></script>
 

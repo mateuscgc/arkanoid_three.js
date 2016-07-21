@@ -67,8 +67,6 @@ ECS.systems.collision = function ( ball, entities, playerId ) {
         //
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
-        if( !curEntity.components.collision.collides )
-            console.log(false);
         if( curEntity.components.collision
             && curEntity.components.collision.collides
             && entityId !== ball.id ) {
@@ -79,7 +77,6 @@ ECS.systems.collision = function ( ball, entities, playerId ) {
 
                 if( curEntity.id !== playerId ) {
                     curEntity.components.health.current -= 1;
-                    console.log('bateu');
                 }
             }
 
@@ -87,6 +84,7 @@ ECS.systems.collision = function ( ball, entities, playerId ) {
         }
     }
 
+    // Colisão com os limites do cenario
     if( ball.components.position.vector.x + ball.components.appearance.radius >= 80 )
         na = newAngle( na, { collide: true, side: 'right' });
     else if( ball.components.position.vector.x - ball.components.appearance.radius <= 0 )

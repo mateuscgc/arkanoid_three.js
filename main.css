@@ -10,3 +10,20 @@ html, body {
     padding: 0;
     overflow: hidden;
 }
+
+#score,
+#lives {
+    color: white;
+    position: fixed;
+    left: 10px;
+    margin-top: 5px;
+}
+
+#score {
+    top: 0px;
+}
+
+#lives {
+    top: 25px;
+}
+

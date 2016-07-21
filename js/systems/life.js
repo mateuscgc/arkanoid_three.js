@@ -8,7 +8,7 @@
 
 // ECS - System - Life
 // --------------------------------------
-ECS.systems.life = function ( entities ) {
+ECS.systems.life = function ( entities, player ) {
     // Here, we've implemented systems as functions which take in an array of
     // entities. An optimization would be to have some layer which only
     // feeds in relevant entities to the system, but for demo purposes we'll
@@ -26,8 +26,13 @@ ECS.systems.life = function ( entities ) {
         // system would use whatever other components specific for your game
         if( curEntity.components.health ) {
 
+            if ( curEntity.components.health.alive
+                 && curEntity.components.health.current <= 0
+                 && curEntity.id != player.id) {
+                player.components.score.current += curEntity.components.health.max;
+            }
+
             curEntity.components.health.alive = ( curEntity.components.health.current > 0 );
-            // console.log(curEntity.components.health.alive);
 
             if( curEntity.components.appearance )
                 curEntity.components.appearance.visible = curEntity.components.health.alive;
@@ -37,6 +42,8 @@ ECS.systems.life = function ( entities ) {
 
             if( curEntity.components.moviment )
                 curEntity.components.moviment.moving = curEntity.components.health.alive;
+
+
         }
     }
 };
