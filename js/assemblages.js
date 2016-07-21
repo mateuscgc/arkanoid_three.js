@@ -17,7 +17,7 @@ ECS.Assemblages = {
         entity.addComponent( new ECS.Components.Appearance(
                                     {
                                         shape: 'circle',
-                                        radius: (typeof params.radius === 'undefined') ? 1.7 : params.radius,
+                                        radius: (typeof params.radius === 'undefined') ? 1.2 : params.radius,
                                         color: params.color || 0xffffff
                                     }));
 

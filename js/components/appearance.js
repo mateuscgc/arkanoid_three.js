@@ -6,6 +6,7 @@ ECS.Components.Appearance = function( params ){
 
     this.shape = params.shape || 'rectangle';
 
+    this.visible = (typeof params.visible === 'undefined') ? true : params.visible;
 
     if(this.shape === 'circle') {
         this.radius = (typeof params.radius === 'undefined') ? 3 : params.radius;

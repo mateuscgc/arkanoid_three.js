@@ -58,7 +58,8 @@ ECS.Game = function() {
     function gameLoop (){
         ECS.systems.moviment(ECS.entities);
         ECS.systems.userInput(paddle);
-        ECS.systems.collision(ball, ECS.entities);
+        ECS.systems.collision(ball, ECS.entities, paddle.id);
+        ECS.systems.life(ECS.entities);
         ECS.systems.render(ECS.entities);
 
         // continue the loop

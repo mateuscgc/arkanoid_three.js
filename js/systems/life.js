@@ -1,14 +1,14 @@
 /* =========================================================================
  *
- * render.js
+ * life.js
  *  This script contains the game logic acts as a controller for the Entity
  *  Component System
  *
  * ========================================================================= */
 
-// ECS - System - Render
+// ECS - System - Life
 // --------------------------------------
-ECS.systems.render = function ( entities ) {
+ECS.systems.life = function ( entities ) {
     // Here, we've implemented systems as functions which take in an array of
     // entities. An optimization would be to have some layer which only
     // feeds in relevant entities to the system, but for demo purposes we'll
@@ -24,16 +24,19 @@ ECS.systems.render = function ( entities ) {
         //
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
-        if( curEntity.components.appearance
-            && curEntity.components.appearance.visible
-            && curEntity.components.position ){
+        if( curEntity.components.health ) {
 
-            curEntity.components.appearance.mesh.position.copy( curEntity.components.position.vector );
-        } else {
-            curEntity.components.appearance.mesh.position.set( -200, -200, -200 );
+            curEntity.components.health.alive = ( curEntity.components.health.current > 0 );
+            // console.log(curEntity.components.health.alive);
+
+            if( curEntity.components.appearance )
+                curEntity.components.appearance.visible = curEntity.components.health.alive;
+
+            if( curEntity.components.collision )
+                curEntity.components.collision.collides = curEntity.components.health.alive;
+
+            if( curEntity.components.moviment )
+                curEntity.components.moviment.moving = curEntity.components.health.alive;
         }
     }
-
-    renderer.clear();
-    renderer.render(scene, camera);
 };

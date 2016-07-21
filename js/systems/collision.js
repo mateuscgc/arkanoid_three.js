@@ -49,7 +49,7 @@ function newAngle( curr, collision ) {
 
 // ECS - System - Collision
 // --------------------------------------
-ECS.systems.collision = function ( ball, entities ) {
+ECS.systems.collision = function ( ball, entities, playerId ) {
     // Here, we've implemented systems as functions which take in an array of
     // entities. An optimization would be to have some layer which only
     // feeds in relevant entities to the system, but for demo purposes we'll
@@ -67,11 +67,21 @@ ECS.systems.collision = function ( ball, entities ) {
         //
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
+        if( !curEntity.components.collision.collides )
+            console.log(false);
         if( curEntity.components.collision
             && curEntity.components.collision.collides
             && entityId !== ball.id ) {
 
-            na = newAngle( na, collide( ball, curEntity ) );
+            collision = collide( ball, curEntity );
+            if( collision.collide ) {
+                na = newAngle( na, collision );
+
+                if( curEntity.id !== playerId ) {
+                    curEntity.components.health.current -= 1;
+                    console.log('bateu');
+                }
+            }
 
             // curEntity.components.position.vector.add( new THREE.Vector3( speed * Math.cos(angle), speed * Math.sin(angle), 0 ));
         }
