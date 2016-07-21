@@ -1,14 +1,14 @@
 /* =========================================================================
  *
- * render.js
+ * moviment.js
  *  This script contains the game logic acts as a controller for the Entity
  *  Component System
  *
  * ========================================================================= */
 
-// ECS - System - Render
+// ECS - System - Moviment
 // --------------------------------------
-ECS.systems.render = function ( entities ) {
+ECS.systems.moviment = function ( entities ) {
     // Here, we've implemented systems as functions which take in an array of
     // entities. An optimization would be to have some layer which only
     // feeds in relevant entities to the system, but for demo purposes we'll
@@ -24,14 +24,13 @@ ECS.systems.render = function ( entities ) {
         //
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
-        if( curEntity.components.appearance && curEntity.components.position ){
-            // var shape = curEntity.components.appearance.shape;
+        if( curEntity.components.moviment
+            && curEntity.components.moviment.moving ) {
 
-            curEntity.components.appearance.mesh.position.copy( curEntity.components.position.vector );
+            var angle = curEntity.components.moviment.angle;
+            var speed = curEntity.components.moviment.speed;
 
+            curEntity.components.position.vector.add( new THREE.Vector3( speed * Math.cos(angle), speed * Math.sin(angle), 0 ));
         }
     }
-
-    renderer.clear();
-    renderer.render(scene, camera);
 };

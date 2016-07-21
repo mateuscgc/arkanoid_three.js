@@ -17,14 +17,14 @@ ECS.Assemblages = {
         entity.addComponent( new ECS.Components.Appearance(
                                     {
                                         shape: 'circle',
-                                        radius: params.radius || 1.7,
+                                        radius: (typeof params.radius === 'undefined') ? 1.7 : params.radius,
                                         color: params.color || 0xffffff
                                     }));
 
         entity.addComponent( new ECS.Components.Position(
                                     {
-                                        x: params.x || 50,
-                                        y: params.y || 20
+                                        x: (typeof params.x === 'undefined') ? 10 : params.x,
+                                        y: (typeof params.y === 'undefined') ? 20 : params.y
                                     }));
 
         // entity.addComponent( new ECS.Components.Collision());
@@ -71,8 +71,8 @@ ECS.Assemblages = {
         entity.addComponent( new ECS.Components.Health({ initial: (typeof params.initial === 'undefined') ? 3 : params.initial }) );
         entity.addComponent( new ECS.Components.Position(
                                     {
-                                        x: params.x || 50,
-                                        y: params.y || 8
+                                        x: (typeof params.x === 'undefined') ? 50 : params.x,
+                                        y: (typeof params.y === 'undefined') ? 8 : params.y
                                     }));
         // entity.addComponent( new ECS.Components.Collision());
         return entity;

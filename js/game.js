@@ -41,6 +41,7 @@ ECS.Game = function() {
 
     // Create Ball
     ball = new ECS.Assemblages.Circle();
+    ball.addComponent( new ECS.Components.Moviment() );
     entities[ball.id] = ball;
 
 
@@ -55,6 +56,7 @@ ECS.Game = function() {
     // Game loop
     // ----------------------------------
     function gameLoop (){
+        ECS.systems.moviment(ECS.entities);
         ECS.systems.userInput(paddle);
         ECS.systems.render(ECS.entities);
 

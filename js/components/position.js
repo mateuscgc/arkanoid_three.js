@@ -3,9 +3,10 @@
 ECS.Components.Position = function( params ){
     params = params || {};
 
-    this.x = params.x || 200;
-    this.y = params.y || 20;
-
+    this.vector = new THREE.Vector3(
+                        (typeof params.x === 'undefined') ? 50 : params.x,
+                        (typeof params.y === 'undefined') ? 50 : params.y
+                        );
     return this;
 };
 ECS.Components.Position.prototype.name = 'position';
