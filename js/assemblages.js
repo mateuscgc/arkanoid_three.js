@@ -27,7 +27,7 @@ ECS.Assemblages = {
                                         y: (typeof params.y === 'undefined') ? 20 : params.y
                                     }));
 
-        // entity.addComponent( new ECS.Components.Collision());
+        entity.addComponent( new ECS.Components.Collision());
 
         return entity;
     },
@@ -52,7 +52,7 @@ ECS.Assemblages = {
                                         width: ECS.Constants.BRICK_WIDTH,
                                         height: ECS.Constants.BRICK_HEIGHT
                                     }));
-        // entity.addComponent( new ECS.Components.Collision());
+        entity.addComponent( new ECS.Components.Collision());
 
         return entity;
     },
@@ -74,7 +74,7 @@ ECS.Assemblages = {
                                         x: (typeof params.x === 'undefined') ? 50 : params.x,
                                         y: (typeof params.y === 'undefined') ? 8 : params.y
                                     }));
-        // entity.addComponent( new ECS.Components.Collision());
+        entity.addComponent( new ECS.Components.Collision());
         return entity;
     },
 
@@ -83,7 +83,7 @@ ECS.Assemblages = {
         var entity = new ECS.Entity();
         entity.addComponent( new ECS.Components.Appearance());
         entity.addComponent( new ECS.Components.Position());
-        // entity.addComponent( new ECS.Components.Collision());
+        entity.addComponent( new ECS.Components.Collision());
 
         return entity;
     }
