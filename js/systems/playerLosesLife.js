@@ -19,6 +19,9 @@ ECS.systems.playerLosesLife = function ( player, ball ) {
         if( player.components.health.current > 0) {
             ball.components.position = new ECS.Components.Position();
             ball.components.moviment = new ECS.Components.Moviment();
+        } else {
+            console.log('bla0');
+            ECS.game.endGame( player, 'defeat' );
         }
     }
 };

@@ -15,6 +15,7 @@ ECS.systems.life = function ( entities, player ) {
     // assume all entities are passed in and iterate over them.
 
     var curEntity;
+    var gameHasToEnd = true;
 
     // iterate over all entities
     for( var entityId in entities ) {
@@ -24,11 +25,13 @@ ECS.systems.life = function ( entities, player ) {
         //
         // For rendering, we need appearance and position. Your own render
         // system would use whatever other components specific for your game
+
+
         if( curEntity.components.health ) {
 
             if ( curEntity.components.health.alive
                  && curEntity.components.health.current <= 0
-                 && curEntity.id != player.id) {
+                 && curEntity.id !== player.id) {
                 player.components.score.current += curEntity.components.health.max;
             }
 
@@ -43,7 +46,12 @@ ECS.systems.life = function ( entities, player ) {
             if( curEntity.components.moviment )
                 curEntity.components.moviment.moving = curEntity.components.health.alive;
 
-
+            if( curEntity.components.health.alive && curEntity.id !== player.id)
+                gameHasToEnd = false;
         }
     }
+
+    if( gameHasToEnd )
+        ECS.game.endGame( player, 'victory' );
+
 };

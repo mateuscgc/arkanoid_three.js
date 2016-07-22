@@ -12,6 +12,11 @@
         <h2 id="score">Score: <span></span></h2>
         <h3 id="lives">Lives: <span></span></h2>
 
+        <div id="final_results">
+            <h1 id="final_status"></h1>
+            <h1 id="final_score"></h1>
+        </div>
+
         <script>
             // For tutorial purposes, we'll set up a global object containing
             // references to all objects.
@@ -58,17 +63,6 @@
                 game: {},
                 score: 0
             };
-                // Canvas functionality (NOT ECS specific)
-                // --------------------------------------
-                // For the demo, just grab a reference to the canvas
-                // Some systems (e.g., rendering) need to know about the canvas. We
-                // could pass in a reference to it or store it's state globally like
-                // this:
-                // ECS.$canvas = document.getElementById("game-canvas");
-                // ECS.context = ECS.$canvas.getContext("2d");
-                // ECS.$score = document.getElementById("score");
-            // }
-            // window.onload = init;
         </script>
 
         <script src="js/entity.js"></script>

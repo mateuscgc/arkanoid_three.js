@@ -72,9 +72,19 @@ ECS.Game = function() {
     // Kick off the game loop
     requestAnimationFrame(gameLoop);
 
-    // Lose condition
-    // ----------------------------------
-    this._running = true; // is the game going?
+    this._running = true;
+
+    this.endGame = function endGame( player, result ){
+        self._running = false;
+
+        resultsGUI = document.getElementById('final_results');
+        document.getElementById('final_status').innerHTML = ( result === 'victory' ) ? 'You Won!' : 'You Lost!';
+        document.getElementById('final_score').innerHTML = 'Final Score: ' + player.components.score.current;
+        resultsGUI.style.width = renderer.getSize().width + 'px';
+        resultsGUI.style.top = (renderer.getSize().height - 200) / 2 + 'px';
+        resultsGUI.style.background = ( result === 'victory' ) ? 'green' : 'red';
+        resultsGUI.style.display = 'block';
+    };
 
     return this;
 };
